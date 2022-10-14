@@ -22,8 +22,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   static final LatLng startPosition = LatLng(
-    37.53666612,
-    126.9990948,
+    37.5645578791268,
+    126.92351719174,
   );
 
   static final CameraPosition initialPosition = CameraPosition(
@@ -45,15 +45,39 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
         Expanded(
           flex: 5,
-          child: GoogleMap(
-            initialCameraPosition: initialPosition,
-            // markers: shops
-            //     .map(
-            //       (e) => Marker(
-            //           markerId: MarkerId(e.businessName),
-            //           position: LatLng(e.latitude, e.longitude)),
-            //     )
-            //     .toSet(),
+          child: FutureBuilder<List<BusinessModel>>(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                // 에러가 있음
+                return Center(
+                  child: Text('에러가 있습니다'),
+                );
+              }
+
+              if (!snapshot.hasData) {
+                // 에러가 없는데 데이터가 없다 -> 로딩중
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              // 이때부터는 무조건 데이터가 있는 상태
+              List<BusinessModel> list2 = snapshot.data!;
+
+              return GoogleMap(
+                initialCameraPosition: initialPosition,
+                markers: list2
+                    .map(
+                      (e) => Marker(
+                        markerId: MarkerId(e.business_title),
+                        position:
+                            LatLng(e.business_latitude, e.business_longitude),
+                      ),
+                    )
+                    .toSet(),
+              );
+            },
           ),
         ),
         Expanded(

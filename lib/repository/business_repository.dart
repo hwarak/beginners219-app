@@ -24,8 +24,6 @@ class BusinesssRepository {
       options: Options(headers: <String, String>{'authorization': basicAuth}),
     );
 
-    print(response);
-
     return response.data['data']
         .map<BusinessModel>((item) => BusinessModel.fromJson(json: item))
         .toList();
