@@ -16,20 +16,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  BusinessModel? tempModel;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fetchData();
-  }
-
-  fetchData() async {
+  Future<List<BusinessModel>> fetchData() async {
     final businessModels = await BusinesssRepository.fetchData();
-    setState(() {
-      tempModel = businessModels[0];
-    });
+    return businessModels;
   }
 
   static final LatLng startPosition = LatLng(
@@ -95,14 +84,35 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
-            child: ListView(
-              children: [
-                if (tempModel != null)
-                  for (int i = 0; i < 5; i++)
-                    ShopList(
-                      business: tempModel!,
-                    ),
-              ],
+            child: FutureBuilder<List<BusinessModel>>(
+              future: fetchData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  // 에러가 있음
+                  return Center(
+                    child: Text('에러가 있습니다'),
+                  );
+                }
+
+                if (!snapshot.hasData) {
+                  // 에러가 없는데 데이터가 없다 -> 로딩중
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                // 이때부터는 무조건 데이터가 있는 상태
+                List<BusinessModel> list = snapshot.data!;
+
+                return ListView(
+                  children: [
+                    for (int i = 0; i < list.length; i++)
+                      ShopList(
+                        business: list[i],
+                      ),
+                  ],
+                );
+              },
             ),
           ),
         ),
