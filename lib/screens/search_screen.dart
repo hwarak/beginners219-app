@@ -33,114 +33,91 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            child: SearchBar(),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: FutureBuilder<List<BusinessModel>>(
-            future: fetchData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                // 에러가 있음
-                return Center(
-                  child: Text('에러가 있습니다'),
-                );
-              }
+    return FutureBuilder<List<BusinessModel>>(
+        future: fetchData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            // 에러가 있음
+            return Center(
+              child: Text('에러가 있습니다'),
+            );
+          }
 
-              if (!snapshot.hasData) {
-                // 에러가 없는데 데이터가 없다 -> 로딩중
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+          if (!snapshot.hasData) {
+            // 에러가 없는데 데이터가 없다 -> 로딩중
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-              // 이때부터는 무조건 데이터가 있는 상태
-              List<BusinessModel> list2 = snapshot.data!;
+          // 이때부터는 무조건 데이터가 있는 상태
+          List<BusinessModel> list = snapshot.data!;
 
-              return GoogleMap(
-                initialCameraPosition: initialPosition,
-                markers: list2
-                    .map(
-                      (e) => Marker(
-                        markerId: MarkerId(e.business_title),
-                        position:
-                            LatLng(e.business_latitude, e.business_longitude),
-                      ),
-                    )
-                    .toSet(),
-              );
-            },
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            // color: Colors.blueAccent,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(12.0),
-                  topLeft: Radius.circular(12.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text(
-                "내 위치 중심",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
+          return Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  child: SearchBar(),
                 ),
               ),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            child: FutureBuilder<List<BusinessModel>>(
-              future: fetchData(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  // 에러가 있음
-                  return Center(
-                    child: Text('에러가 있습니다'),
-                  );
-                }
-
-                if (!snapshot.hasData) {
-                  // 에러가 없는데 데이터가 없다 -> 로딩중
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                // 이때부터는 무조건 데이터가 있는 상태
-                List<BusinessModel> list = snapshot.data!;
-
-                return ListView(
-                  children: [
-                    for (int i = 0; i < list.length; i++)
-                      ShopList(
-                        business: list[i],
+              Expanded(
+                flex: 5,
+                child: GoogleMap(
+                  initialCameraPosition: initialPosition,
+                  markers: list
+                      .map(
+                        (e) => Marker(
+                          markerId: MarkerId(e.business_title),
+                          position:
+                              LatLng(e.business_latitude, e.business_longitude),
+                        ),
+                      )
+                      .toSet(),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  // color: Colors.blueAccent,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12.0),
+                        topLeft: Radius.circular(12.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      "내 위치 중심",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w700,
                       ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ),
-      ],
-    );
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView(
+                    children: [
+                      for (int i = 0; i < list.length; i++)
+                        ShopList(
+                          business: list[i],
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
