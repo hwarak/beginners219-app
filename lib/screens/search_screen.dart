@@ -73,6 +73,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           markerId: MarkerId(e.business_title),
                           position:
                               LatLng(e.business_latitude, e.business_longitude),
+                          icon: e.business_category_id == 1
+                              ? BitmapDescriptor.defaultMarkerWithHue(
+                                  BitmapDescriptor.hueViolet)
+                              : BitmapDescriptor.defaultMarkerWithHue(
+                                  BitmapDescriptor.hueBlue),
                         ),
                       )
                       .toSet(),
