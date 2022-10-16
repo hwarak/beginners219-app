@@ -32,11 +32,9 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'beginners219',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+        title: Image.asset(
+          'assets/images/logo.jpg',
+          height: 100.0,
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -44,7 +42,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         actions: [
           Icon(
             Icons.notifications,
-            color: Colors.black,
+            color: Color.fromRGBO(33, 3, 248, 0.5),
           ),
           SizedBox(
             width: 10.0,
