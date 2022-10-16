@@ -6,5 +6,6 @@ void main() async {
   await dotenv.load(fileName: 'assets/config/.env');
   runApp(MaterialApp(
     home: DefaultLayout(),
+    debugShowCheckedModeBanner: false,
   ));
 }
