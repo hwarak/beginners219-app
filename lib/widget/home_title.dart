@@ -14,7 +14,9 @@ class HomeTitle extends StatelessWidget {
             top: 17.0,
             child: Image.asset(
               "assets/images/home_title_underline.jpg",
-              width: title == "Main Article" ? 143.0 : 200.0,
+              width: title == "Main Article"
+                  ? MediaQuery.of(context).size.width / 3
+                  : MediaQuery.of(context).size.width / 2,
             ),
           ),
           Text(
