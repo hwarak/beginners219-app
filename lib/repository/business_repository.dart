@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' as foundation;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../model/business_model.dart';
 
@@ -10,8 +11,8 @@ bool get isiOS =>
 
 class BusinesssRepository {
   static Future<List<BusinessModel>> fetchData() async {
-    String username = 'user';
-    String password = ‘password’;
+    String username = dotenv.env['API_USERNAME']!;
+    String password = dotenv.env['API_PASSWORD']!;
     String basicAuth =
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     print(basicAuth);
