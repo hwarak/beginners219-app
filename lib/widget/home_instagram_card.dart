@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../const/button_style.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse('https://flutter.dev');
 
 class HomeInstagramCard extends StatelessWidget {
   final int index;
@@ -12,7 +15,7 @@ class HomeInstagramCard extends StatelessWidget {
       child: Container(
         width: 170.0,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: _launchUrl,
           child: Text(
             'Insta $index',
             style: TextStyle(
@@ -24,5 +27,11 @@ class HomeInstagramCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
   }
 }
