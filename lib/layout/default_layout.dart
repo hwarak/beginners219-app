@@ -33,8 +33,8 @@ class _DefaultLayoutState extends State<DefaultLayout> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          'assets/images/logo.jpg',
-          height: 100.0,
+          'assets/images/white_logo.png',
+          height: 40.0,
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -56,24 +56,52 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              color: Color.fromRGBO(33, 3, 248, 0.3),
+            ),
+            activeIcon: Icon(
+              Icons.home,
+              color: Color.fromRGBO(33, 3, 248, 1),
+            ),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: Color.fromRGBO(33, 3, 248, 0.3),
+            ),
+            activeIcon: Icon(
+              Icons.search,
+              color: Color.fromRGBO(33, 3, 248, 1),
+            ),
             label: '검색',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.article),
+            icon: Icon(
+              Icons.article,
+              color: Color.fromRGBO(33, 3, 248, 0.3),
+            ),
+            activeIcon: Icon(
+              Icons.article,
+              color: Color.fromRGBO(33, 3, 248, 1),
+            ),
             label: '아티클',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+              color: Color.fromRGBO(33, 3, 248, 0.3),
+            ),
+            activeIcon: Icon(
+              Icons.settings,
+              color: Color.fromRGBO(33, 3, 248, 1),
+            ),
             label: '설정',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
+        selectedItemColor: Color.fromRGBO(33, 3, 248, 1),
         onTap: _onItemTapped,
       ),
     );
