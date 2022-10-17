@@ -6,18 +6,14 @@ class HomeShopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Text(
-          "주변 웨이스트샵 보러가기 ->",
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
+    return SizedBox(
+      height: 113,
+      child: InkWell(
+        onTap: () {},
+        child: Ink.image(
+          fit: BoxFit.cover,
+          image: AssetImage("assets/images/go_search.png"),
         ),
-        style: mainElevatedButtonStyle,
       ),
     );
   }
