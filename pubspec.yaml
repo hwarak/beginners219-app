@@ -52,6 +52,7 @@ dev_dependencies:
   introduction_screen: ^3.0.1
   flutter_dotenv: ^5.0.2
   url_launcher: ^6.1.6
+  flutter_native_splash: ^2.2.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
