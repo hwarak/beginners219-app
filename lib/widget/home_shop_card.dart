@@ -1,5 +1,7 @@
+import 'package:beginners219/screens/search_screen.dart';
 import 'package:flutter/material.dart';
-import '../const/button_style.dart';
+
+import '../layout/default_layout.dart';
 
 class HomeShopCard extends StatelessWidget {
   const HomeShopCard({Key? key}) : super(key: key);
